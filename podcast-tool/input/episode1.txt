@@ -1,0 +1,1 @@
+Welcome to the show. Today we're diving into something that's been on every developer's mind lately — how to build voice applications using cloud services. Whether you're a solo creator or part of a team, the tools available right now make it easier than ever to turn your ideas into something people can actually hear. Let's get into it.
