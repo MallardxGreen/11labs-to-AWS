@@ -8,15 +8,15 @@ Drop a `.txt` file into an S3 bucket, and the pipeline translates it (optional),
 
 ```
 ┌──────────┐     ┌──────────┐     ┌───────────┐     ┌────────────┐     ┌──────────┐
-│  Upload   │────▶│    S3    │────▶│  Lambda   │────▶│ ElevenLabs │────▶│    S3    │
-│  .txt     │     │  Input   │     │ (Process) │     │   (TTS)    │     │  Output  │
+│  Upload  │────▶│    S3    │────▶│  Lambda   │────▶│ ElevenLabs │────▶│    S3    │
+│  .txt    │     │  Input   │     │ (Process) │     │   (TTS)    │     │  Output  │
 └──────────┘     └──────────┘     └─────┬─────┘     └────────────┘     └──────────┘
                                         │
                               ┌─────────┴─────────┐
                               │                   │
                         ┌─────▼─────┐     ┌───────▼───────┐
                         │ Translate │     │    Secrets    │
-                        │ (optional)│     │    Manager   │
+                        │ (optional)│     │    Manager    │
                         └───────────┘     └───────────────┘
 ```
 
