@@ -1,8 +1,16 @@
-# 🎙️ PodCastTool
+# 🎙️ ElevenLabs + AWS Voice Pipeline
 
-Turn any text file into a podcast episode using ElevenLabs voice AI and AWS — fully automated.
+An event-driven pipeline that connects [ElevenLabs](https://elevenlabs.io) voice AI to AWS — upload text, get audio back. No servers to manage.
 
-Drop a `.txt` file into an S3 bucket, and the pipeline translates it (optional), generates speech with a voice of your choice, and saves the MP3 to an output bucket. No servers to manage.
+Use your own cloned voice or any of ElevenLabs' free premade voices. Optionally translate to 75+ languages with Amazon Translate before generating speech.
+
+## Use Cases
+
+- **Podcasts** — turn scripts into episodes with a consistent voice
+- **Audiobooks** — convert chapters to spoken audio at scale
+- **Localization** — translate and voice content in multiple languages
+- **Accessibility** — generate audio versions of written content
+- **Prototyping** — test voice clones in a real pipeline before production
 
 ## How It Works
 
@@ -20,19 +28,24 @@ Drop a `.txt` file into an S3 bucket, and the pipeline translates it (optional),
                         └───────────┘     └───────────────┘
 ```
 
-## What You Need
+1. Upload a `.txt` file to an S3 input bucket
+2. S3 triggers a Lambda function automatically
+3. Lambda reads the text, optionally translates it via Amazon Translate
+4. Lambda calls ElevenLabs to generate speech using your chosen voice
+5. The MP3 is saved to an S3 output bucket
 
-| Service | Purpose | Free Tier |
-|---------|---------|-----------|
-| **S3** | Store input text + output audio | 5 GB/month |
-| **Lambda** | Run the pipeline per upload | 1M requests/month |
-| **Secrets Manager** | Store ElevenLabs API key | 30-day trial |
+## AWS Services Used
+
+| Service | Role | Free Tier |
+|---------|------|-----------|
+| **S3** | Input text + output audio storage | 5 GB/month |
+| **Lambda** | Runs the pipeline per upload | 1M requests/month |
+| **Secrets Manager** | Stores ElevenLabs API key securely | 30-day trial |
 | **Amazon Translate** | Multi-language support | 2M chars/month (12 mo) |
-| **ElevenLabs** | Text-to-speech engine | Limited chars/month |
 
 ## Voices
 
-You can use **free premade voices** on ElevenLabs' free tier, or **your own cloned voice** with a Creator+ subscription.
+Use **free premade voices** on ElevenLabs' free tier, or **your own cloned voice** with a Creator+ subscription.
 
 | Voice | ID | Style |
 |-------|----|-------|
@@ -71,7 +84,7 @@ the way we create content. Stay tuned.
 ## Quick Start
 
 ```bash
-# 1. Create S3 buckets
+# 1. Create S3 buckets (pick your preferred region)
 aws s3 mb s3://my-podcast-input --region YOUR_REGION
 aws s3 mb s3://my-podcast-output --region YOUR_REGION
 
@@ -134,7 +147,7 @@ podcast-tool/
 
 ## Interactive Guide
 
-A full step-by-step build guide is included as a web app:
+A full step-by-step build guide is included as a web app with CLI/Console tabs, diagrams, and copy buttons:
 
 ```bash
 cd podcast-tool/guide
